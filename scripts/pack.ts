@@ -1,0 +1,18 @@
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import { createWriteStream } from 'node:fs';
+import { ZipArchive } from 'archiver';
+const [folder, target, manifestFile] = process.argv.slice(2);
+if (!folder || !target) throw new Error('用法：npm run pack -- <交付目录> <输出.zip> [handoff.json]');
+const source = path.resolve(folder), output = path.resolve(target);
+if (output.startsWith(source + path.sep)) throw new Error('输出 ZIP 请放在交付目录之外，避免递归打包');
+await fs.access(source);
+await fs.mkdir(path.dirname(output), { recursive: true });
+const stream = createWriteStream(output);
+const finished = new Promise<void>((resolve, reject) => { stream.on('close', resolve); stream.on('error', reject); });
+const zip = new ZipArchive({ zlib: { level: 9 } });
+zip.on('error', e => stream.destroy(e)); zip.pipe(stream);
+zip.glob('**/*', { cwd: source, dot: true, ignore: ['**/.DS_Store', '**/node_modules/**', '**/.git/**', '**/.env', '**/.env.*', '**/qa/**', ...(manifestFile ? ['handoff.json'] : [])] });
+if (manifestFile) zip.file(path.resolve(manifestFile), { name: 'handoff.json' });
+await zip.finalize(); await finished;
+console.log(`交付包已生成：${output}`);

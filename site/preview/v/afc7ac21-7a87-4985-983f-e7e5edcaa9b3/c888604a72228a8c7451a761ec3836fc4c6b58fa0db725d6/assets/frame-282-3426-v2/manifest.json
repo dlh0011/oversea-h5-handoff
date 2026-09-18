@@ -1,0 +1,60 @@
+{
+  "fileKey": "AkCiae1udy4wWFKNfw11yv",
+  "frameId": "282:3426",
+  "frameName": "frame今日霸主榜单1",
+  "scale": 2,
+  "assets": [
+    {
+      "file": "ctr_main_tabs-282-3445@2x.png",
+      "expected": [
+        804,
+        132
+      ],
+      "actual": [
+        804,
+        132
+      ],
+      "ok": true,
+      "bytes": 142416
+    },
+    {
+      "file": "img_rank_scene-282-3462@2x.png",
+      "expected": [
+        804,
+        1040
+      ],
+      "actual": [
+        804,
+        1040
+      ],
+      "ok": true,
+      "bytes": 1636159
+    },
+    {
+      "file": "btn_today-282-3529@2x.png",
+      "expected": [
+        274,
+        118
+      ],
+      "actual": [
+        274,
+        118
+      ],
+      "ok": true,
+      "bytes": 45437
+    },
+    {
+      "file": "btn_yesterday-282-3532@2x.png",
+      "expected": [
+        274,
+        118
+      ],
+      "actual": [
+        274,
+        118
+      ],
+      "ok": true,
+      "bytes": 37216
+    }
+  ]
+}

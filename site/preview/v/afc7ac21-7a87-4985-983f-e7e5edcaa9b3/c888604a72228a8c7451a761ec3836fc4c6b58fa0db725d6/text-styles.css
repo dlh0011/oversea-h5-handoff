@@ -1,0 +1,190 @@
+@font-face { font-family: 'TikTok Sans'; src: url('assets/TikTokSans-Regular.ttf') format('truetype'); font-weight: 400; }
+@font-face { font-family: 'TikTok Sans'; src: url('assets/TikTokSans-Bold.ttf') format('truetype'); font-weight: 700; }
+@font-face { font-family: 'TikTok Sans'; src: url('assets/TikTokSans-ExtraBold.ttf') format('truetype'); font-weight: 800; }
+@font-face { font-family: 'TikTok Sans'; src: url('assets/TikTokSans-Black.ttf') format('truetype'); font-weight: 900; }
+@font-face { font-family: 'Roboto'; src: url('assets/Roboto-Regular.ttf') format('truetype'); font-weight: 400; }
+.text { font-synthesis: none; overflow: visible; }
+.hotspot { z-index: 20; }
+.recruit-count-bg {
+  position: absolute;
+  left: 72px;
+  top: 402px;
+  width: 257px;
+  height: 38px;
+  pointer-events: none;
+  background: linear-gradient(90deg, rgba(202,133,0,0) 1%, rgba(202,133,0,1) 47.228%, rgba(202,133,0,0) 100%);
+  border: 1.2401556px solid transparent;
+  border-image: linear-gradient(90deg, rgba(255,246,163,0) 3.0007325%, rgba(255,246,163,1) 51.5007317%, rgba(255,246,163,0) 100%) 1;
+  mix-blend-mode: normal;
+}
+/* WIDTH_AND_HEIGHT text in the source frame is a single-line node. */
+.text:not([data-node-id='94:87']):not(.event-description) { white-space: nowrap; }
+.text.event-description,
+.text[data-node-id='94:87'] {
+  white-space: normal;
+  overflow-wrap: anywhere;
+  overflow: hidden;
+}
+/* Figma CAP_HEIGHT bounds exclude font leading, not glyph descenders. */
+.text[data-node-id='94:61'],
+.text[data-node-id='94:63'],
+.text[data-node-id='94:96'] { height: auto !important; text-box-trim: trim-both; text-box-edge: cap alphabetic; }
+.text[data-node-id='94:61'] { filter: drop-shadow(0 1.2401556px 0 #380c0c); }
+.text[data-node-id='94:63'] { -webkit-text-stroke: 0.3298936px #024437; paint-order: stroke fill; filter: drop-shadow(0 1.0996454px 0 #320e0e); }
+/* frame今日霸主榜单1 / 94:108. New Figma exports will be mounted here. */
+.page.leaderboard-page {
+  height: 1367px;
+  overflow: visible;
+}
+.today-leaderboard {
+  position: absolute;
+  left: 0;
+  top: 66px;
+  width: 402px;
+  height: 919px;
+  overflow: hidden;
+  isolation: isolate;
+  background: #002e21;
+  z-index: 50;
+  display: block;
+}
+.page:not(.leaderboard-page) .today-leaderboard { display: none !important; }
+.page.leaderboard-page .today-leaderboard { display: block !important; }
+.today-leaderboard > * { display: block; }
+.leaderboard-main-tabs {
+  position: absolute;
+  left: 0;
+  top: 0px;
+  width: 402px;
+  height: 66px;
+  display: none;
+  z-index: 60;
+}
+.page.leaderboard-page .leaderboard-main-tabs { display: block; }
+.page.leaderboard-page [data-node-id='94:38'],
+.page.leaderboard-page [data-node-id='94:39'],
+.page.leaderboard-page [data-node-id='94:40'] { visibility: hidden; }
+.leaderboard-asset {
+  position: absolute;
+  display: block;
+  object-fit: contain;
+  z-index: 1;
+  visibility: visible;
+  opacity: 1;
+}
+.leaderboard-today { left: 57px; top: 4px; width: 137px; height: 59px; }
+.leaderboard-yesterday { left: 209px; top: 4px; width: 137px; height: 59px; }
+.leaderboard-scene { left: 0; top: 39px; width: 402px; height: 520px; z-index: 1; }
+.leaderboard-rank-first { left: 21px; top: 28px; width: 359px; height: 359px; z-index: 3; }
+.leaderboard-avatar-empty { left: 62px; top: 325px; width: 75px; height: 75px; z-index: 4; }
+.leaderboard-rank-third { left: 217px; top: 299px; width: 163px; height: 216px; z-index: 3; }
+.leaderboard-rank-second { left: 19px; top: 299px; width: 163px; height: 216px; z-index: 3; }
+.leaderboard-rank-list { left: 9.5px; top: 521px; width: 382px; height: 302px; z-index: 4; }
+.leaderboard-my-rank { left: 0; top: 803px; width: 402px; height: 117px; z-index: 5; }
+.leaderboard-distance { left: 263px; top: 840px; width: 114px; height: 63px; }
+.leaderboard-jackpot { left: 51px; top: -434px; width: 300px; height: 101px; }
+.leaderboard-bottom-art { left: 351px; top: -434px; width: 41px; height: 41px; }
+.leaderboard-recruit { left: 132px; top: 299px; width: 138px; height: 26px; }
+.leaderboard-status { left: 0; top: -639px; width: 402px; height: 62px; }
+.leaderboard-hotspot { position: absolute; border: 0; background: transparent; padding: 0; cursor: pointer; }
+.leaderboard-main-ranking-hit {
+  left: 0;
+  top: 0px;
+  width: 201px;
+  height: 66px;
+  display: none;
+  z-index: 80;
+}
+.page.leaderboard-page .leaderboard-main-ranking-hit { display: block; }
+.leaderboard-yesterday-hit { left: 226px; top: 4px; width: 137px; height: 59px; }
+
+/* Split leaderboard layers: Figma bottom artwork and runtime information stay separate. */
+.today-leaderboard { overflow: visible; }
+.rank-module { position:absolute; z-index:5; }
+.rank-module .rank-card { position:absolute; inset:0; width:100%; height:100%; }
+.rank-module .rank-avatar { position:absolute; object-fit:cover; border-radius:50%; z-index:2; }
+.rank-module .rank-name { position:absolute; z-index:3; color:#fff1b1; font:700 17px/20.4px 'TikTok Sans',sans-serif; text-align:center; white-space:nowrap; text-shadow:0 1.24px #320e0e; }
+.rank-top1 { left:21px; top:28px; width:359px; height:359px; }
+.rank-top1 .rank-avatar { left:141.23px; top:121.86px; width:83.44px; height:83.44px; }
+.rank-top1 .rank-name { left:107px; top:235px; width:150px; }
+.rank-top2 { left:19px; top:299px; width:163px; height:216px; }
+.rank-top3 { left:217px; top:299px; width:163px; height:216px; }
+.rank-top2 .rank-name,.rank-top3 .rank-name { left:25px; top:118px; width:112px; }
+.rank-top2 .recruit-badge,.rank-top3 .recruit-badge { position:absolute; left:20px; top:150px; width:120px; height:22.61px; color:#ffed8c; font:700 14.78px/17.74px Roboto,sans-serif; text-align:center; z-index:6; }
+.rank-top3 .rank-avatar { left:43px; top:32px; width:75px; height:75px; }
+.recruit-badge::before,.leaderboard-recruit-main::before { content:''; position:absolute; inset:0; background:linear-gradient(90deg,transparent 1%,#ca8500 47.2%,transparent); border:1px solid #fff6a3; opacity:.85; z-index:-1; }
+.rank-list-split { position:absolute; left:9.5px; top:521px; width:382px; z-index:6; }
+.rank-row { position:relative; width:382px; height:104px; }
+.rank-row>.row-bg { position:absolute; inset:0; width:382px; height:94px; }
+.rank-no { position:absolute; left:14px; top:36px; width:43px; color:#ebffc1; font:700 17px/22px 'Roboto Condensed',Roboto,sans-serif; }
+.row-avatar { position:absolute; left:67px; top:19.77px; width:54.45px; height:54.45px; border-radius:50%; overflow:hidden; }
+.row-avatar img { width:100%; height:100%; object-fit:cover; }
+.row-name { position:absolute; left:131.45px; top:36px; width:137px; color:#ebffc1; font:700 17px/20.4px Roboto,sans-serif; white-space:nowrap; overflow:hidden; }
+.row-score { position:absolute; left:279px; top:35.5px; width:83px; color:#ffe3a0; font:700 17px/20.4px Roboto,sans-serif; text-align:right; white-space:nowrap; }
+.leaderboard-distance-bg { left:263px; top:840px; width:114px; height:63px; opacity:.18; }
+.distance-info { position:absolute; left:263px; top:840px; width:114px; z-index:7; color:#ffe3a0; font:600 11px/14.4px 'TikTok Sans',sans-serif; text-align:right; }
+.distance-info div+div { margin-top:5px; }
+.distance-info b { font-weight:600; }
+.my-rank-dock { position:fixed; left:50%; bottom:0; width:402px; height:117px; transform:translateX(-50%); z-index:90; pointer-events:none; }
+.my-rank-bg { position:absolute; inset:0; width:402px; height:117px; }
+.my-rank-no { position:absolute; left:10px; top:52px; color:#ebffc1; font:700 17px/22px 'Roboto Condensed',Roboto,sans-serif; }
+.my-rank-avatar { position:absolute; left:54px; top:36px; width:54.45px; height:54.45px; border-radius:50%; object-fit:cover; }
+.my-rank-name { position:absolute; left:118px; top:52px; color:#ebffc1; font:700 17px/20.4px Roboto,sans-serif; white-space:nowrap; }
+.my-rank-score { position:absolute; right:64px; top:51px; color:#ffe3a0; font:700 17px/20.4px Roboto,sans-serif; }
+.leaderboard-recruit-main { position:absolute; left:132px; top:299px; width:138px; height:26px; z-index:7; color:#ffed8c; font:700 17px/20.4px Roboto,sans-serif; text-align:center; }
+
+@font-face { font-family:'Roboto Condensed'; src:url('assets/RobotoCondensed-Bold.ttf') format('truetype'); font-weight:700; }
+/* Exact split layer correction */
+.rank-top1 .rank-avatar{left:137.232px;top:121.863px;width:83.437px;height:83.437px}
+.rank-top1 .rank-name{left:107px;top:235px;width:150px}
+.rank-top2 .rank-avatar{left:43px;top:26px;width:75px;height:75px}
+.rank-top3 .rank-avatar{left:43px;top:32px;width:75px;height:75px}
+/* Top cards overlay the avatars through their transparent windows. */
+.rank-module .rank-card{z-index:2}.rank-module .rank-avatar{z-index:1}.rank-module .rank-name{z-index:4}
+.recruit-badge{overflow:visible}.recruit-badge>img{position:absolute;object-fit:contain}.recruit-badge>img:first-child{inset:0;width:120px;height:31.304px;top:-4.348px}.recruit-badge>img:nth-child(2){left:10.327px;top:6.656px;width:6.609px;height:9.546px}.recruit-badge>img:nth-child(3){right:7.91px;top:6.656px;width:6.609px;height:9.546px}.recruit-badge span{position:relative;z-index:2;display:block;line-height:22.609px}
+.rank-list-split{top:521px}.rank-row{height:104px}.rank-row .row-bg{position:absolute;left:0;top:0;width:382px;height:94px}.rank-no{left:14px;top:36px;font-size:22px;line-height:21.72px;color:#ffe3c2}.row-avatar{left:67px;top:19.773px;width:54.453px;height:54.453px;object-fit:cover;border-radius:50%}.row-name{left:131.453px;top:36px;width:137px;color:#ebffc1;font:700 17px/20.4px Roboto,sans-serif}.row-score{left:279px;top:35.5px;width:83px;color:#ffe3a0;font:700 17px/20.4px Roboto,sans-serif}
+.leaderboard-recruit-main{left:132px;top:299px;width:138px;height:26px}.leaderboard-recruit-main>img{position:absolute;object-fit:contain}.leaderboard-recruit-main>img:first-child{left:3px;top:-5px;width:133px;height:36px}.leaderboard-recruit-main>img:nth-child(2){left:29.742px;top:8.49px;width:7.2px;height:10.4px}.leaderboard-recruit-main>img:nth-child(3){right:13.26px;top:8.49px;width:7.2px;height:10.4px}.leaderboard-recruit-main span{position:relative;z-index:2;display:block;color:#ffed8c;font:700 17px/26px Roboto,sans-serif;text-align:center}
+.my-rank-dock{display:none;position:fixed;left:50%;bottom:0;width:402px;height:117px;transform:translateX(-50%);z-index:200;pointer-events:none}body.is-leaderboard .my-rank-dock{display:block}.my-rank-bg{position:absolute;inset:0;width:402px;height:117px}.my-rank-no{position:absolute;left:10px;top:52px;color:#ffe3c2;font:700 22px/21.72px 'Roboto Condensed',sans-serif}.my-rank-avatar{position:absolute;left:54px;top:36px;width:54.453px;height:54.453px;border-radius:50%;object-fit:cover}.my-rank-name{position:absolute;left:117.953px;top:52.5px;color:#ebffc1;font:700 17px/20.4px Roboto,sans-serif}.distance-info{position:absolute;left:263px;top:37px;width:114px;color:#ffe3a0;font:600 11px/14.4px 'TikTok Sans',sans-serif;text-align:right;letter-spacing:-.08px}.distance-info div+div{margin-top:5px}.distance-info div{white-space:nowrap}
+
+
+/* Header 286:4474: 340px total, followed by the original 21px tab gap. */
+.page-shell{position:relative;width:min(402px,100vw);height:903px;overflow:hidden;background:#002e21}
+.page{transform:scale(var(--h5-scale,1));transform-origin:top left}
+.hero-replacement{position:absolute;left:0;top:0;width:402px;height:340px;isolation:isolate}
+.lower-content{position:absolute;left:0;top:361px;width:402px;height:542px}
+.leaderboard-page .lower-content{height:1006px}
+.my-rank-dock{width:402px;transform:translateX(-50%) scale(var(--h5-scale,1));transform-origin:bottom center}
+/* ctr_rank_row / ctr_avatar: Figma image fill is already a 1:1 ellipse export. */
+.rank-row > .row-avatar{
+  display:block;
+  flex:none;
+  width:54.452568px;
+  height:54.452568px;
+  aspect-ratio:1 / 1;
+  min-width:54.452568px;
+  min-height:54.452568px;
+  max-width:none;
+  max-height:none;
+  border:0;
+  border-radius:50%;
+  overflow:visible;
+  object-fit:fill;
+  transform:none;
+}
+.rank-row > .row-avatar[src]{
+  object-fit:fill;
+  object-position:50% 50%;
+}
+/* ctr_recruit_count_bg is a complete Figma image group for all three ranks. */
+.rank-module .recruit-count-group{position:absolute;left:20px;top:150px;width:120px;height:22.608696px;z-index:3;object-fit:fill}
+.leaderboard-recruit-main{left:132px;top:299px;width:138px;height:26px;object-fit:fill;z-index:7}
+.rank-module .recruit-badge{display:none}
+/* Username text nodes use their own Figma bounds inside each rank card. */
+.rank-top1 .rank-name{left:130px;top:240px;width:104px;height:21px}
+.rank-top2 .rank-name{left:22.5px;top:123px;width:117px;height:21px}
+.rank-top3 .rank-name{left:32.5px;top:123px;width:97px;height:21px}
+/* ctr_distance_info / 282:3526: exact Dev Mode text styles and per-node bounds. */
+.my-rank-dock .distance-info{left:0;top:0;width:0;height:0;color:transparent;font-family:'TikTok Sans',sans-serif;font-size:11px;font-weight:600;font-style:normal;line-height:14.4px;letter-spacing:-0.08px;text-align:right;white-space:normal}
+.my-rank-dock .distance-info div{position:absolute;display:block;height:29px;margin:0;padding:0;color:transparent;background:linear-gradient(180deg,rgba(255,246,191,1) 0%,rgba(255,226,73,1) 100%);background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent;font:600 11px/14.4px 'TikTok Sans',sans-serif;letter-spacing:-0.08px;text-align:right;white-space:pre;}
+.my-rank-dock .distance-info div:first-child{left:273px;top:37px;width:104px}
+.my-rank-dock .distance-info div:last-child{left:263px;top:71px;width:114px}

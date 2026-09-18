@@ -1,0 +1,183 @@
+{
+  "fileKey": "AkCiae1udy4wWFKNfw11yv",
+  "frameId": "282:3426",
+  "scale": 2,
+  "assets": {
+    "282:3466": {
+      "file": "dyn-top1-avatar-282-3466@2x.png",
+      "name": "dyn-top1-avatar",
+      "bounds": {
+        "x": 4.232421875,
+        "y": 16899.86328125,
+        "width": 83.43730926513672,
+        "height": 83.43730926513672
+      },
+      "type": "ELLIPSE"
+    },
+    "282:3467": {
+      "file": "cut-top1-card-282-3467@2x.png",
+      "name": "cut-top1-card",
+      "bounds": {
+        "x": -133,
+        "y": 16778,
+        "width": 359,
+        "height": 359
+      },
+      "type": "RECTANGLE"
+    },
+    "282:3471": {
+      "file": "dyn-top2-avatar-282-3471@2x.png",
+      "name": "dyn-top2-avatar",
+      "bounds": {
+        "x": -92,
+        "y": 17075,
+        "width": 75,
+        "height": 75
+      },
+      "type": "ELLIPSE"
+    },
+    "282:3473": {
+      "file": "dyn-top3-avatar-282-3473@2x.png",
+      "name": "dyn-top3-avatar",
+      "bounds": {
+        "x": 106,
+        "y": 17081,
+        "width": 75,
+        "height": 75
+      },
+      "type": "ELLIPSE"
+    },
+    "282:3474": {
+      "file": "cut-top3-card-282-3474@2x.png",
+      "name": "cut-top3-card",
+      "bounds": {
+        "x": 63,
+        "y": 17049,
+        "width": 163,
+        "height": 216
+      },
+      "type": "RECTANGLE"
+    },
+    "282:3485": {
+      "file": "cut-rank-row-4-bg-282-3485@2x.png",
+      "name": "cut-rank-row-4-bg",
+      "bounds": {
+        "x": -144.5,
+        "y": 17271,
+        "width": 382,
+        "height": 94
+      },
+      "type": "FRAME"
+    },
+    "282:3490": {
+      "file": "dyn-rank-avatar-4-282-3490@2x.png",
+      "name": "dyn-rank-avatar-4",
+      "bounds": {
+        "x": -77.49996948242188,
+        "y": 17290.7734375,
+        "width": 54.45256805419922,
+        "height": 54.45256805419922
+      },
+      "type": "ELLIPSE"
+    },
+    "282:3496": {
+      "file": "cut-rank-row-5-bg-282-3496@2x.png",
+      "name": "cut-rank-row-5-bg",
+      "bounds": {
+        "x": -144.5,
+        "y": 17375,
+        "width": 382,
+        "height": 94
+      },
+      "type": "FRAME"
+    },
+    "282:3501": {
+      "file": "dyn-rank-avatar-5-282-3501@2x.png",
+      "name": "dyn-rank-avatar-5",
+      "bounds": {
+        "x": -77.49996948242188,
+        "y": 17394.7734375,
+        "width": 54.45256805419922,
+        "height": 54.45256805419922
+      },
+      "type": "ELLIPSE"
+    },
+    "282:3507": {
+      "file": "cut-rank-row-6-bg-282-3507@2x.png",
+      "name": "cut-rank-row-6-bg",
+      "bounds": {
+        "x": -144.5,
+        "y": 17479,
+        "width": 382,
+        "height": 94
+      },
+      "type": "FRAME"
+    },
+    "282:3512": {
+      "file": "dyn-rank-avatar-6-282-3512@2x.png",
+      "name": "dyn-rank-avatar-6",
+      "bounds": {
+        "x": -77.49996948242188,
+        "y": 17498.7734375,
+        "width": 54.45256805419922,
+        "height": 54.45256805419922
+      },
+      "type": "ELLIPSE"
+    },
+    "282:3518": {
+      "file": "cut-my-rank-bg-282-3518@2x.png",
+      "name": "cut-my-rank-bg",
+      "bounds": {
+        "x": -154,
+        "y": 17553,
+        "width": 402,
+        "height": 117
+      },
+      "type": "RECTANGLE"
+    },
+    "282:3522": {
+      "file": "dyn-my-avatar-282-3522@2x.png",
+      "name": "dyn-my-avatar",
+      "bounds": {
+        "x": -99.99996948242188,
+        "y": 17589,
+        "width": 54.45256805419922,
+        "height": 54.45256805419922
+      },
+      "type": "ELLIPSE"
+    },
+    "282:3545": {
+      "file": "cut-rank1-recruit-count-bg-282-3545@2x.png",
+      "name": "cut-rank1-recruit-count-bg",
+      "bounds": {
+        "x": -22,
+        "y": 17049,
+        "width": 138,
+        "height": 26
+      },
+      "type": "GROUP"
+    },
+    "282:3539": {
+      "file": "cut-rank2-recruit-count-bg-282-3539@2x.png",
+      "name": "cut-rank2-recruit-count-bg",
+      "bounds": {
+        "x": -115,
+        "y": 17199.6953125,
+        "width": 120,
+        "height": 22.60869598388672
+      },
+      "type": "GROUP"
+    },
+    "282:3477": {
+      "file": "cut-rank3-recruit-count-bg-282-3477@2x.png",
+      "name": "cut-rank3-recruit-count-bg",
+      "bounds": {
+        "x": 83,
+        "y": 17199.6953125,
+        "width": 120,
+        "height": 22.60869598388672
+      },
+      "type": "GROUP"
+    }
+  }
+}

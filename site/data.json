@@ -1,0 +1,545 @@
+{
+  "project": {
+    "id": "6c4f4fd6-b915-4d25-9269-d64e9b7fd967",
+    "name": "幸运霸主",
+    "figmaUrl": "https://www.figma.com/design/AkCiae1udy4wWFKNfw11yv?node-id=282-3315",
+    "createdAt": "2026-09-17T11:09:41.001Z"
+  },
+  "version": {
+    "id": "afc7ac21-7a87-4985-983f-e7e5edcaa9b3",
+    "projectId": "6c4f4fd6-b915-4d25-9269-d64e9b7fd967",
+    "label": "v1 · 设计走查",
+    "notes": "包含活动首页、今日榜单和昨日榜单。此版本规则弹窗尚未接通，文字裁剪反馈仍需在 Codex 中修复；本次导入不代表已完成验收。",
+    "createdAt": "2026-09-17T11:09:41.001Z",
+    "previewKey": "c888604a72228a8c7451a761ec3836fc4c6b58fa0db725d6",
+    "previewRoot": ".",
+    "pages": [
+      {
+        "id": "home",
+        "name": "活动首页",
+        "path": "standalone.html",
+        "width": 402,
+        "height": 903,
+        "note": "历史弹窗可在页面中点击打开；规则弹窗当前尚未接入。"
+      },
+      {
+        "id": "today",
+        "name": "今日霸主榜单",
+        "path": "standalone.html#leaderboard",
+        "width": 402,
+        "height": 1367,
+        "note": "支持榜单页切换；请重点走查昵称与招募时长的裁剪问题。"
+      },
+      {
+        "id": "yesterday",
+        "name": "昨日霸主榜单",
+        "path": "standalone.html#leaderboard-yesterday",
+        "width": 402,
+        "height": 1558,
+        "note": "与今日榜单独立记录标注；页面内可继续切换状态。"
+      }
+    ],
+    "files": [
+      {
+        "path": "handoff.json",
+        "size": 977
+      },
+      {
+        "path": "HANDOFF.md",
+        "size": 795
+      },
+      {
+        "path": "README.md",
+        "size": 578
+      },
+      {
+        "path": "assets/Roboto-Regular.ttf",
+        "size": 123720
+      },
+      {
+        "path": "assets/RobotoCondensed-Bold.ttf",
+        "size": 166340
+      },
+      {
+        "path": "assets/TikTokSans-Black.ttf",
+        "size": 175340
+      },
+      {
+        "path": "assets/TikTokSans-Bold.ttf",
+        "size": 175252
+      },
+      {
+        "path": "assets/TikTokSans-ExtraBold.ttf",
+        "size": 175356
+      },
+      {
+        "path": "assets/TikTokSans-Regular.ttf",
+        "size": 174136
+      },
+      {
+        "path": "assets/dec_battery_border-94_105.png",
+        "size": 515
+      },
+      {
+        "path": "assets/dec_battery_cap-94_106.png",
+        "size": 199
+      },
+      {
+        "path": "assets/dec_battery_capacity-94_107.png",
+        "size": 266
+      },
+      {
+        "path": "assets/dec_glow_left-94_71.png",
+        "size": 130713
+      },
+      {
+        "path": "assets/dec_glow_right-94_72.png",
+        "size": 130782
+      },
+      {
+        "path": "assets/dec_star_left-94_59.png",
+        "size": 838
+      },
+      {
+        "path": "assets/dec_star_right-94_60.png",
+        "size": 836
+      },
+      {
+        "path": "assets/frame-282-3426-split/cut-my-rank-bg-282-3518@2x.png",
+        "size": 165939
+      },
+      {
+        "path": "assets/frame-282-3426-split/cut-rank-row-4-bg-282-3485@2x.png",
+        "size": 246563
+      },
+      {
+        "path": "assets/frame-282-3426-split/cut-rank-row-5-bg-282-3496@2x.png",
+        "size": 246563
+      },
+      {
+        "path": "assets/frame-282-3426-split/cut-rank-row-6-bg-282-3507@2x.png",
+        "size": 246563
+      },
+      {
+        "path": "assets/frame-282-3426-split/cut-rank1-recruit-count-bg-282-3545@2x.png",
+        "size": 28286
+      },
+      {
+        "path": "assets/frame-282-3426-split/cut-rank2-recruit-count-bg-282-3539@2x.png",
+        "size": 22696
+      },
+      {
+        "path": "assets/frame-282-3426-split/cut-rank3-recruit-count-bg-282-3477@2x.png",
+        "size": 22696
+      },
+      {
+        "path": "assets/frame-282-3426-split/cut-top1-card-282-3467@2x.png",
+        "size": 677527
+      },
+      {
+        "path": "assets/frame-282-3426-split/cut-top2-card-282-3536@2x.png",
+        "size": 185182
+      },
+      {
+        "path": "assets/frame-282-3426-split/cut-top3-card-282-3474@2x.png",
+        "size": 181656
+      },
+      {
+        "path": "assets/frame-282-3426-split/dyn-my-avatar-282-3522@2x.png",
+        "size": 23123
+      },
+      {
+        "path": "assets/frame-282-3426-split/dyn-rank-avatar-4-282-3490@2x.png",
+        "size": 22694
+      },
+      {
+        "path": "assets/frame-282-3426-split/dyn-rank-avatar-5-282-3501@2x.png",
+        "size": 22694
+      },
+      {
+        "path": "assets/frame-282-3426-split/dyn-rank-avatar-6-282-3512@2x.png",
+        "size": 22694
+      },
+      {
+        "path": "assets/frame-282-3426-split/dyn-top1-avatar-282-3466@2x.png",
+        "size": 51842
+      },
+      {
+        "path": "assets/frame-282-3426-split/dyn-top2-avatar-282-3471@2x.png",
+        "size": 37276
+      },
+      {
+        "path": "assets/frame-282-3426-split/dyn-top3-avatar-282-3473@2x.png",
+        "size": 44096
+      },
+      {
+        "path": "assets/frame-282-3426-split/manifest.json",
+        "size": 4296
+      },
+      {
+        "path": "assets/frame-282-3426-split/nodes.json",
+        "size": 42604
+      },
+      {
+        "path": "assets/frame-282-3426-v2/btn_today-282-3529@2x.png",
+        "size": 45437
+      },
+      {
+        "path": "assets/frame-282-3426-v2/btn_yesterday-282-3532@2x.png",
+        "size": 37216
+      },
+      {
+        "path": "assets/frame-282-3426-v2/ctr_main_tabs-282-3445@2x.png",
+        "size": 142416
+      },
+      {
+        "path": "assets/frame-282-3426-v2/img_rank_scene-282-3462@2x.png",
+        "size": 1636159
+      },
+      {
+        "path": "assets/frame-282-3426-v2/manifest.json",
+        "size": 964
+      },
+      {
+        "path": "assets/header-286-4474/manifest.json",
+        "size": 3504
+      },
+      {
+        "path": "assets/header-286-4474/切图-倒计时底框-286-4472@2x.png",
+        "size": 48812
+      },
+      {
+        "path": "assets/header-286-4474/切图-倒计时数字-286-4464@2x.png",
+        "size": 4731
+      },
+      {
+        "path": "assets/header-286-4474/切图-倒计时数字-286-4465@2x.png",
+        "size": 5235
+      },
+      {
+        "path": "assets/header-286-4474/切图-倒计时数字-286-4466@2x.png",
+        "size": 5629
+      },
+      {
+        "path": "assets/header-286-4474/切图-倒计时数字-286-4467@2x.png",
+        "size": 4712
+      },
+      {
+        "path": "assets/header-286-4474/切图-倒计时数字-286-4468@2x.png",
+        "size": 4293
+      },
+      {
+        "path": "assets/header-286-4474/切图-倒计时数字-286-4469@2x.png",
+        "size": 4762
+      },
+      {
+        "path": "assets/header-286-4474/切图-倒计时数字-286-4470@2x.png",
+        "size": 4700
+      },
+      {
+        "path": "assets/header-286-4474/切图-金币倒计时底框-286-4463@2x.png",
+        "size": 141695
+      },
+      {
+        "path": "assets/header-286-4474/头图-切图-286-4452@2x.png",
+        "size": 1116981
+      },
+      {
+        "path": "assets/ico_back-94_44.png",
+        "size": 1070
+      },
+      {
+        "path": "assets/ico_cellular-94_102.png",
+        "size": 409
+      },
+      {
+        "path": "assets/ico_rules-94_49.png",
+        "size": 788
+      },
+      {
+        "path": "assets/ico_wifi-94_103.png",
+        "size": 548
+      },
+      {
+        "path": "assets/image-17208-I94_88;14718:88863.png",
+        "size": 7625
+      },
+      {
+        "path": "assets/img_avatar-94_67.png",
+        "size": 22128
+      },
+      {
+        "path": "assets/img_avatar_mask-94_66.png",
+        "size": 13908
+      },
+      {
+        "path": "assets/img_btn_back_bg-94_42.png",
+        "size": 14856
+      },
+      {
+        "path": "assets/img_btn_history_bg-94_93.png",
+        "size": 26097
+      },
+      {
+        "path": "assets/img_btn_rules_bg-94_47.png",
+        "size": 14856
+      },
+      {
+        "path": "assets/img_diamond_icon-94_73.png",
+        "size": 37087
+      },
+      {
+        "path": "assets/img_main_tabs_bg-94_38.png",
+        "size": 140397
+      },
+      {
+        "path": "assets/img_panel_bottom-94_55.png",
+        "size": 268802
+      },
+      {
+        "path": "assets/img_panel_mid-94_54.png",
+        "size": 60867
+      },
+      {
+        "path": "assets/img_panel_top-94_53.png",
+        "size": 112552
+      },
+      {
+        "path": "assets/img_score_badge_bg-94_58.png",
+        "size": 33540
+      },
+      {
+        "path": "assets/rec_diamond_card_bg-94_70.png",
+        "size": 104678
+      },
+      {
+        "path": "assets/rec_history_hit_area-94_95.png",
+        "size": 5957
+      },
+      {
+        "path": "assets/rec_progress_segment_01-94_76.png",
+        "size": 2836
+      },
+      {
+        "path": "assets/rec_progress_segment_02-94_77.png",
+        "size": 1545
+      },
+      {
+        "path": "assets/rec_progress_segment_03-94_78.png",
+        "size": 1545
+      },
+      {
+        "path": "assets/rec_progress_segment_04-94_79.png",
+        "size": 1545
+      },
+      {
+        "path": "assets/rec_progress_segment_05-94_80.png",
+        "size": 1545
+      },
+      {
+        "path": "assets/rec_progress_segment_06-94_81.png",
+        "size": 1545
+      },
+      {
+        "path": "assets/rec_progress_segment_07-94_82.png",
+        "size": 1545
+      },
+      {
+        "path": "assets/rec_progress_segment_08-94_83.png",
+        "size": 1545
+      },
+      {
+        "path": "assets/rec_progress_segment_09-94_84.png",
+        "size": 1545
+      },
+      {
+        "path": "assets/rec_progress_segment_10-94_85.png",
+        "size": 1374
+      },
+      {
+        "path": "assets/rec_rules_dot-94_50.png",
+        "size": 271
+      },
+      {
+        "path": "assets/state-291-282/btn_today-291-3436@2x.png",
+        "size": 36265
+      },
+      {
+        "path": "assets/state-291-282/btn_yesterday-291-3433@2x.png",
+        "size": 45946
+      },
+      {
+        "path": "assets/state-291-282/ctr_recruit_count-291-3327@2x.png",
+        "size": 19625
+      },
+      {
+        "path": "assets/state-291-282/ctr_recruit_count-291-3389@2x.png",
+        "size": 19625
+      },
+      {
+        "path": "assets/state-291-282/ctr_recruit_count-291-3395@2x.png",
+        "size": 24895
+      },
+      {
+        "path": "assets/state-291-282/ico_close-282-3771@2x.png",
+        "size": 1389
+      },
+      {
+        "path": "assets/state-291-282/img_avatar_mask-291-3316@2x.png",
+        "size": 14780
+      },
+      {
+        "path": "assets/state-291-282/img_avatar_mask-291-3321@2x.png",
+        "size": 12664
+      },
+      {
+        "path": "assets/state-291-282/img_avatar_mask-291-3323@2x.png",
+        "size": 12664
+      },
+      {
+        "path": "assets/state-291-282/img_avatar_ring-291-3372@2x.png",
+        "size": 23123
+      },
+      {
+        "path": "assets/state-291-282/img_btn_back_bg-282-3768@2x.png",
+        "size": 14856
+      },
+      {
+        "path": "assets/state-291-282/img_history_avatar-282-3718@2x.png",
+        "size": 9563
+      },
+      {
+        "path": "assets/state-291-282/img_history_avatar-282-3727@2x.png",
+        "size": 7374
+      },
+      {
+        "path": "assets/state-291-282/img_history_avatar-282-3736@2x.png",
+        "size": 7878
+      },
+      {
+        "path": "assets/state-291-282/img_history_avatar-282-3745@2x.png",
+        "size": 9355
+      },
+      {
+        "path": "assets/state-291-282/img_history_avatar-282-3754@2x.png",
+        "size": 8848
+      },
+      {
+        "path": "assets/state-291-282/img_my_rank_bg-291-3368@2x.png",
+        "size": 165939
+      },
+      {
+        "path": "assets/state-291-282/img_panel_bottom-282-3710@2x.png",
+        "size": 238734
+      },
+      {
+        "path": "assets/state-291-282/img_panel_mid-282-3709@2x.png",
+        "size": 69114
+      },
+      {
+        "path": "assets/state-291-282/img_panel_top-282-3708@2x.png",
+        "size": 100134
+      },
+      {
+        "path": "assets/state-291-282/img_rank_card-291-3324@2x.png",
+        "size": 181656
+      },
+      {
+        "path": "assets/state-291-282/img_rank_card-291-3386@2x.png",
+        "size": 185182
+      },
+      {
+        "path": "assets/state-291-282/img_rank_first_card-291-3317@2x.png",
+        "size": 677527
+      },
+      {
+        "path": "assets/state-291-282/img_rank_scene-291-3312@2x.png",
+        "size": 1636159
+      },
+      {
+        "path": "assets/state-291-282/manifest.json",
+        "size": 8513
+      },
+      {
+        "path": "assets/state-291-282/txt_round_no-282-3721@2x.png",
+        "size": 321
+      },
+      {
+        "path": "assets/state-291-282/txt_round_no-282-3730@2x.png",
+        "size": 396
+      },
+      {
+        "path": "assets/state-291-282/txt_round_no-282-3739@2x.png",
+        "size": 423
+      },
+      {
+        "path": "assets/state-291-282/txt_round_no-282-3748@2x.png",
+        "size": 402
+      },
+      {
+        "path": "assets/state-291-282/txt_round_no-282-3756@2x.png",
+        "size": 403
+      },
+      {
+        "path": "assets/state-291-282/切图-空状态-291-3424@2x.png",
+        "size": 72201
+      },
+      {
+        "path": "standalone.html",
+        "size": 41638
+      },
+      {
+        "path": "standalone.js",
+        "size": 5434
+      },
+      {
+        "path": "states.css",
+        "size": 2127
+      },
+      {
+        "path": "text-styles.css",
+        "size": 13547
+      }
+    ],
+    "archiveSize": 10768059,
+    "status": "reviewing",
+    "revision": 25,
+    "issues": [
+      {
+        "selector": "body:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > header:nth-of-type(1) > img:nth-of-type(1)",
+        "label": "img.asset",
+        "styles": {},
+        "note": "用户名被裁剪",
+        "id": "6b17bdc5-4cc6-48dd-b188-696af362d4ee",
+        "pageId": "home",
+        "author": "设计同事",
+        "status": "todo",
+        "createdAt": "2026-09-18T02:07:31.962Z",
+        "updatedAt": "2026-09-18T04:08:24.325Z",
+        "position": {
+          "left": -30.1328125,
+          "top": 188.63671875
+        }
+      },
+      {
+        "selector": "body:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(2) > img:nth-of-type(1)",
+        "label": "img.asset",
+        "styles": {
+          "top": "-1px",
+          "height": "67px"
+        },
+        "note": "",
+        "id": "625b51f1-c750-4c78-ba9d-0889550a5bf7",
+        "pageId": "home",
+        "author": "设计同事",
+        "status": "todo",
+        "createdAt": "2026-09-18T02:11:35.593Z",
+        "updatedAt": "2026-09-18T04:08:23.642Z",
+        "position": {
+          "left": -30.86328125,
+          "top": 355.08984375
+        }
+      }
+    ]
+  }
+}

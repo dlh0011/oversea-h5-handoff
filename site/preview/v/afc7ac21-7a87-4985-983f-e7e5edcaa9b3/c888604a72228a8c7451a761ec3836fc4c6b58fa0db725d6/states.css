@@ -1,0 +1,23 @@
+/* Shared day tabs stay fixed while their content switches below. */
+.day-panel{position:absolute;inset:0;width:402px;height:919px;transition:opacity 260ms ease,transform 260ms ease,visibility 260ms;isolation:isolate}
+.day-panel[aria-hidden="false"]{opacity:1;transform:translateX(0);visibility:visible}
+.today-ranks[aria-hidden="true"]{opacity:0;transform:translateX(-16px);visibility:hidden;pointer-events:none}
+.yesterday-ranks[aria-hidden="true"]{opacity:0;transform:translateX(16px);visibility:hidden;pointer-events:none}
+.leaderboard-today,.leaderboard-yesterday{z-index:80}
+.leaderboard-today-hit{left:57px;top:4px;width:137px;height:59px;z-index:90}
+.leaderboard-yesterday-hit{left:209px;top:4px;width:137px;height:59px;z-index:90}
+.state-group,.state-asset,.state-text{position:absolute;display:block;box-sizing:border-box}
+.state-asset{object-fit:fill}
+.state-text{white-space:pre;font-synthesis:none;-webkit-font-smoothing:antialiased}
+.state-group{isolation:isolate}
+.yesterday-rank-dock{position:fixed;bottom:0;left:50%;width:402px;height:117px;transform:translateX(-50%) scale(var(--h5-scale,1));transform-origin:bottom center;z-index:200;pointer-events:none}
+.yesterday-rank-dock[hidden]{display:none}
+body.is-yesterday .my-rank-dock{display:none}
+.history-dialog{position:fixed;inset:0;margin:auto;padding:0;border:0;background:transparent;color:inherit;width:calc(402px * var(--dialog-scale,1));height:calc(396.064px * var(--dialog-scale,1));max-width:none;max-height:none;overflow:visible;transform:translateY(calc(-24.968px * var(--dialog-scale,1)))}
+.history-dialog::backdrop{background:rgba(0,0,0,.6)}
+.history-canvas{position:relative;width:402px;height:396.064px;transform:scale(var(--dialog-scale,1));transform-origin:top left}
+.history-close{position:absolute;z-index:10;border:0;padding:0;background:transparent;cursor:pointer;border-radius:50%}
+.history-close:focus-visible,.leaderboard-hotspot:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.history-list::-webkit-scrollbar{display:none}
+.history-list{touch-action:pan-y}
+@media(prefers-reduced-motion:reduce){.day-panel{transition:none}}

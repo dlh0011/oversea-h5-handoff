@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "name": "新活动",
+  "version": "v1",
+  "notes": "首次走查版本",
+  "previewRoot": "preview",
+  "sourceArchive": "source.zip",
+  "pages": [
+    { "id": "home", "name": "活动首页", "path": "index.html", "width": 402, "height": 903 }
+  ]
+}

@@ -1,0 +1,427 @@
+{
+  "fileKey": "AkCiae1udy4wWFKNfw11yv",
+  "scale": 2,
+  "useAbsoluteBounds": true,
+  "assets": {
+    "291:3312": {
+      "file": "img_rank_scene-291-3312@2x.png",
+      "name": "img_rank_scene",
+      "bounds": {
+        "x": 310,
+        "y": 16789,
+        "width": 402,
+        "height": 520
+      },
+      "pixels": [
+        804,
+        1040
+      ]
+    },
+    "291:3316": {
+      "file": "img_avatar_mask-291-3316@2x.png",
+      "name": "img_avatar_mask",
+      "bounds": {
+        "x": 468.232421875,
+        "y": 16899.86328125,
+        "width": 83.43730926513672,
+        "height": 83.43730926513672
+      },
+      "pixels": [
+        167,
+        167
+      ]
+    },
+    "291:3317": {
+      "file": "img_rank_first_card-291-3317@2x.png",
+      "name": "img_rank_first_card",
+      "bounds": {
+        "x": 331,
+        "y": 16778,
+        "width": 359,
+        "height": 359
+      },
+      "pixels": [
+        718,
+        718
+      ]
+    },
+    "291:3321": {
+      "file": "img_avatar_mask-291-3321@2x.png",
+      "name": "img_avatar_mask",
+      "bounds": {
+        "x": 372,
+        "y": 17075,
+        "width": 75,
+        "height": 75
+      },
+      "pixels": [
+        150,
+        150
+      ]
+    },
+    "291:3323": {
+      "file": "img_avatar_mask-291-3323@2x.png",
+      "name": "img_avatar_mask",
+      "bounds": {
+        "x": 570,
+        "y": 17081,
+        "width": 75,
+        "height": 75
+      },
+      "pixels": [
+        150,
+        150
+      ]
+    },
+    "291:3324": {
+      "file": "img_rank_card-291-3324@2x.png",
+      "name": "img_rank_card",
+      "bounds": {
+        "x": 527,
+        "y": 17049,
+        "width": 163,
+        "height": 216
+      },
+      "pixels": [
+        326,
+        432
+      ]
+    },
+    "291:3386": {
+      "file": "img_rank_card-291-3386@2x.png",
+      "name": "img_rank_card",
+      "bounds": {
+        "x": 329,
+        "y": 17049,
+        "width": 163,
+        "height": 216
+      },
+      "pixels": [
+        326,
+        432
+      ]
+    },
+    "291:3327": {
+      "file": "ctr_recruit_count-291-3327@2x.png",
+      "name": "ctr_recruit_count",
+      "bounds": {
+        "x": 547,
+        "y": 17199.6953125,
+        "width": 120,
+        "height": 22.60869598388672
+      },
+      "pixels": [
+        240,
+        46
+      ]
+    },
+    "291:3389": {
+      "file": "ctr_recruit_count-291-3389@2x.png",
+      "name": "ctr_recruit_count",
+      "bounds": {
+        "x": 349,
+        "y": 17199.6953125,
+        "width": 120,
+        "height": 22.60869598388672
+      },
+      "pixels": [
+        240,
+        46
+      ]
+    },
+    "291:3395": {
+      "file": "ctr_recruit_count-291-3395@2x.png",
+      "name": "ctr_recruit_count",
+      "bounds": {
+        "x": 442,
+        "y": 17049,
+        "width": 138,
+        "height": 26
+      },
+      "pixels": [
+        276,
+        52
+      ]
+    },
+    "291:3368": {
+      "file": "img_my_rank_bg-291-3368@2x.png",
+      "name": "img_my_rank_bg",
+      "bounds": {
+        "x": 310,
+        "y": 17553,
+        "width": 402,
+        "height": 117
+      },
+      "pixels": [
+        804,
+        234
+      ]
+    },
+    "291:3372": {
+      "file": "img_avatar_ring-291-3372@2x.png",
+      "name": "img_avatar_ring",
+      "bounds": {
+        "x": 346.0000305175781,
+        "y": 17589,
+        "width": 54.45256805419922,
+        "height": 54.45256805419922
+      },
+      "pixels": [
+        109,
+        109
+      ]
+    },
+    "291:3433": {
+      "file": "btn_yesterday-291-3433@2x.png",
+      "name": "btn_yesterday",
+      "bounds": {
+        "x": 519,
+        "y": 16754,
+        "width": 137,
+        "height": 59
+      },
+      "pixels": [
+        274,
+        118
+      ]
+    },
+    "291:3436": {
+      "file": "btn_today-291-3436@2x.png",
+      "name": "btn_today",
+      "bounds": {
+        "x": 367,
+        "y": 16754,
+        "width": 137,
+        "height": 59
+      },
+      "pixels": [
+        274,
+        118
+      ]
+    },
+    "291:3424": {
+      "file": "切图-空状态-291-3424@2x.png",
+      "name": "切图/空状态",
+      "bounds": {
+        "x": 451,
+        "y": 17324.62109375,
+        "width": 122,
+        "height": 139
+      },
+      "pixels": [
+        244,
+        278
+      ]
+    },
+    "282:3708": {
+      "file": "img_panel_top-282-3708@2x.png",
+      "name": "img_panel_top",
+      "bounds": {
+        "x": 1396,
+        "y": 16650.357421875,
+        "width": 374,
+        "height": 70.70646667480469
+      },
+      "pixels": [
+        748,
+        142
+      ]
+    },
+    "282:3709": {
+      "file": "img_panel_mid-282-3709@2x.png",
+      "name": "img_panel_mid",
+      "bounds": {
+        "x": 1396,
+        "y": 16552,
+        "width": 374,
+        "height": 99
+      },
+      "pixels": [
+        748,
+        198
+      ]
+    },
+    "282:3710": {
+      "file": "img_panel_bottom-282-3710@2x.png",
+      "name": "img_panel_bottom",
+      "bounds": {
+        "x": 1396,
+        "y": 16357,
+        "width": 374,
+        "height": 195.37313842773438
+      },
+      "pixels": [
+        748,
+        391
+      ]
+    },
+    "282:3718": {
+      "file": "img_history_avatar-282-3718@2x.png",
+      "name": "img_history_avatar",
+      "bounds": {
+        "x": 1465.04052734375,
+        "y": 16431.21875,
+        "width": 31.9998779296875,
+        "height": 31.9998779296875
+      },
+      "pixels": [
+        64,
+        64
+      ]
+    },
+    "282:3727": {
+      "file": "img_history_avatar-282-3727@2x.png",
+      "name": "img_history_avatar",
+      "bounds": {
+        "x": 1465.04052734375,
+        "y": 16484.21875,
+        "width": 31.9998779296875,
+        "height": 31.9998779296875
+      },
+      "pixels": [
+        64,
+        64
+      ]
+    },
+    "282:3736": {
+      "file": "img_history_avatar-282-3736@2x.png",
+      "name": "img_history_avatar",
+      "bounds": {
+        "x": 1465.04052734375,
+        "y": 16537.21875,
+        "width": 31.9998779296875,
+        "height": 31.9998779296875
+      },
+      "pixels": [
+        64,
+        64
+      ]
+    },
+    "282:3745": {
+      "file": "img_history_avatar-282-3745@2x.png",
+      "name": "img_history_avatar",
+      "bounds": {
+        "x": 1465.04052734375,
+        "y": 16590.21875,
+        "width": 31.9998779296875,
+        "height": 31.9998779296875
+      },
+      "pixels": [
+        64,
+        64
+      ]
+    },
+    "282:3754": {
+      "file": "img_history_avatar-282-3754@2x.png",
+      "name": "img_history_avatar",
+      "bounds": {
+        "x": 1465.04052734375,
+        "y": 16643.21875,
+        "width": 31.9998779296875,
+        "height": 31.9998779296875
+      },
+      "pixels": [
+        64,
+        64
+      ]
+    },
+    "282:3721": {
+      "file": "txt_round_no-282-3721@2x.png",
+      "name": "txt_round_no",
+      "bounds": {
+        "x": 1440.78857421875,
+        "y": 16443,
+        "width": 7,
+        "height": 12
+      },
+      "pixels": [
+        14,
+        24
+      ]
+    },
+    "282:3730": {
+      "file": "txt_round_no-282-3730@2x.png",
+      "name": "txt_round_no",
+      "bounds": {
+        "x": 1439.78857421875,
+        "y": 16496,
+        "width": 9,
+        "height": 12
+      },
+      "pixels": [
+        18,
+        24
+      ]
+    },
+    "282:3739": {
+      "file": "txt_round_no-282-3739@2x.png",
+      "name": "txt_round_no",
+      "bounds": {
+        "x": 1439.78857421875,
+        "y": 16549,
+        "width": 9,
+        "height": 12
+      },
+      "pixels": [
+        18,
+        24
+      ]
+    },
+    "282:3748": {
+      "file": "txt_round_no-282-3748@2x.png",
+      "name": "txt_round_no",
+      "bounds": {
+        "x": 1438.78857421875,
+        "y": 16602,
+        "width": 10,
+        "height": 12
+      },
+      "pixels": [
+        20,
+        24
+      ]
+    },
+    "282:3756": {
+      "file": "txt_round_no-282-3756@2x.png",
+      "name": "txt_round_no",
+      "bounds": {
+        "x": 1439.78857421875,
+        "y": 16655,
+        "width": 9,
+        "height": 12
+      },
+      "pixels": [
+        18,
+        24
+      ]
+    },
+    "282:3768": {
+      "file": "img_btn_back_bg-282-3768@2x.png",
+      "name": "img_btn_back_bg",
+      "bounds": {
+        "x": 1725,
+        "y": 16325,
+        "width": 45,
+        "height": 45
+      },
+      "pixels": [
+        90,
+        90
+      ]
+    },
+    "282:3771": {
+      "file": "ico_close-282-3771@2x.png",
+      "name": "ico_close",
+      "bounds": {
+        "x": 1736,
+        "y": 16335,
+        "width": 24,
+        "height": 24
+      },
+      "pixels": [
+        48,
+        48
+      ]
+    }
+  }
+}

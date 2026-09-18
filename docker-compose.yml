@@ -1,0 +1,18 @@
+services:
+  handoff:
+    build: .
+    ports:
+      - "4328:4328"
+      - "4329:4329"
+    environment:
+      NODE_ENV: production
+      HOST: 0.0.0.0
+      PORT: 4328
+      PREVIEW_PORT: 4329
+      SITE_ORIGIN: ${SITE_ORIGIN:?Set SITE_ORIGIN to the address colleagues can open}
+      PREVIEW_ORIGIN: ${PREVIEW_ORIGIN:?Set PREVIEW_ORIGIN to the address colleagues can open}
+      HANDOFF_ACCESS_CODE: ${HANDOFF_ACCESS_CODE:?Set a team access code with at least 12 characters}
+      HANDOFF_DATA_DIR: /app/data
+    volumes:
+      - ./data:/app/data
+    restart: unless-stopped

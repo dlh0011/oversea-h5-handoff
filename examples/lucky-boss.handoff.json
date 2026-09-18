@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "name": "幸运霸主",
+  "version": "v1 · 设计走查",
+  "notes": "包含活动首页、今日榜单和昨日榜单。此版本规则弹窗尚未接通，文字裁剪反馈仍需在 Codex 中修复；本次导入不代表已完成验收。",
+  "figmaUrl": "https://www.figma.com/design/AkCiae1udy4wWFKNfw11yv?node-id=282-3315",
+  "previewRoot": ".",
+  "pages": [
+    {"id":"home","name":"活动首页","path":"standalone.html","width":402,"height":903,"note":"历史弹窗可在页面中点击打开；规则弹窗当前尚未接入。"},
+    {"id":"today","name":"今日霸主榜单","path":"standalone.html#leaderboard","width":402,"height":1367,"note":"支持榜单页切换；请重点走查昵称与招募时长的裁剪问题。"},
+    {"id":"yesterday","name":"昨日霸主榜单","path":"standalone.html#leaderboard-yesterday","width":402,"height":1558,"note":"与今日榜单独立记录标注；页面内可继续切换状态。"}
+  ]
+}
