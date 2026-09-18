@@ -29,6 +29,8 @@ npm run build
 HANDOFF_ACCESS_CODE='至少 12 位团队访问码' npm start
 ```
 
+运行服务的本机访问 `127.0.0.1:4328`、`localhost:4328` 或 `::1:4328` 会自动免登录；其他电脑通过内网地址访问时仍需输入团队访问码。
+
 本机试用可省略 `HANDOFF_ACCESS_CODE`。部署到局域网时设置 `HOST=0.0.0.0`，并为 `HANDOFF_DATA_DIR` 指定持久磁盘目录。
 
 ## 日常工作流

@@ -47,15 +47,19 @@ const upload = multer({
 });
 const sessions = new Map<string, number>();
 const attempts = new Map<string, { count: number; at: number }>();
+function isLoopbackRequest(req: express.Request) {
+  const address = req.socket.remoteAddress?.replace(/^::ffff:/, "");
+  return address === "127.0.0.1" || address === "::1" || address === "localhost";
+}
 function loggedIn(req: express.Request) {
-  if (!accessCode) return true;
+  if (!accessCode || isLoopbackRequest(req)) return true;
   const token = req.headers.cookie?.match(
     /(?:^|; )handoff_session=([^;]+)/,
   )?.[1];
   return !!token && (sessions.get(token) || 0) > Date.now();
 }
 app.get("/api/session", (req, res) =>
-  res.json({ authenticated: loggedIn(req), local: !accessCode }),
+  res.json({ authenticated: loggedIn(req), local: !accessCode || isLoopbackRequest(req) }),
 );
 app.post("/api/login", (req, res) => {
   const ip = req.ip || "unknown";
