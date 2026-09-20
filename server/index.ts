@@ -7,7 +7,7 @@ import multer from "multer";
 import { z } from "zod";
 import { ZipArchive } from "archiver";
 import { Storage, HttpError, safePath } from "./storage.js";
-import { importPackage } from "./import.js";
+import { archiveSingleHtml, importPackage } from "./import.js";
 import { visualEditorClient } from "./visual-editor-client.js";
 import { renderSharePage } from "./share.js";
 import type { Issue } from "../shared/types.js";
@@ -106,10 +106,16 @@ app.get("/api/catalog", (_req, res) =>
 );
 app.post("/api/import", upload.single("file"), async (req, res) => {
   const file = req.file;
-  if (!file) throw new HttpError(400, "请选择 ZIP 文件");
+  if (!file) throw new HttpError(400, "请选择 ZIP 或 HTML 文件");
+  let archivePath = file.path;
   try {
-    if (!file.originalname.toLowerCase().endsWith(".zip"))
-      throw new HttpError(400, "请上传 ZIP 交付包");
+    const extension = path.extname(file.originalname).toLowerCase();
+    if (extension === ".html" || extension === ".htm") {
+      archivePath = path.join(temp, `html-${crypto.randomUUID()}.zip`);
+      await archiveSingleHtml(file.path, archivePath);
+    } else if (extension !== ".zip") {
+      throw new HttpError(400, "请上传 ZIP 交付包或单个 HTML 文件");
+    }
     const input = z
       .object({
         projectId: z.string().uuid().optional(),
@@ -118,10 +124,11 @@ app.post("/api/import", upload.single("file"), async (req, res) => {
         notes: z.string().max(10000).optional(),
       })
       .parse(req.body);
-    const version = await importPackage(store, file.path, input);
+    const version = await importPackage(store, archivePath, input);
     res.status(201).json({ version });
   } finally {
     await fs.rm(file.path, { force: true });
+    if (archivePath !== file.path) await fs.rm(archivePath, { force: true });
   }
 });
 const patchSchema = z.object({

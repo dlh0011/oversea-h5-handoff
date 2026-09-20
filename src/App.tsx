@@ -1854,8 +1854,9 @@ function UploadDialog({
   const input = useRef<HTMLInputElement>(null);
   function pick(f?: File) {
     if (!f) return;
-    if (!f.name.toLowerCase().endsWith(".zip")) {
-      setError("请选择 ZIP 交付包");
+    const extension = f.name.toLowerCase().split(".").pop();
+    if (extension !== "zip" && extension !== "html" && extension !== "htm") {
+      setError("请选择 ZIP 交付包或 HTML 文件");
       return;
     }
     if (f.size > 100 * 1024 * 1024) {
@@ -1909,7 +1910,7 @@ function UploadDialog({
           </button>
         </div>
         <p className="modal-description">
-          上传 Codex 生成的完整交付包，自动建立预览与文件目录。
+          可上传 Codex 交付 ZIP，也可以直接上传技术给你的单个 HTML 做二次走查。
         </p>
         <label className="form-label">
           项目名称
@@ -1938,17 +1939,17 @@ function UploadDialog({
           <input
             ref={input}
             type="file"
-            aria-label="选择交付 ZIP"
-            accept=".zip"
+            aria-label="选择交付 ZIP 或 HTML"
+            accept=".zip,.html,.htm"
             disabled={busy}
             onChange={(e) => pick(e.target.files?.[0])}
           />
           <UploadCloud size={32} />
-          <strong>{file ? file.name : "拖入交付 ZIP，或点击选择文件"}</strong>
+          <strong>{file ? file.name : "拖入 ZIP / HTML，或点击选择文件"}</strong>
           <span>
             {file
               ? bytes(file.size)
-              : "HTML + 图片字体，或 React 构建后的预览 · 最大 100MB"}
+              : "ZIP 交付包，或资源已内联的单个 HTML · 最大 100MB"}
           </span>
         </div>
         <div className="form-row">
@@ -1977,9 +1978,9 @@ function UploadDialog({
           />
         </label>
         <div className="form-tip">
-          <FileArchive size={16} />
-          <span>
-            完整资源会随版本一起保存。请排除 node_modules、密钥和无关文件。
+            <FileArchive size={16} />
+            <span>
+            单个 HTML 如果依赖旁边的图片、CSS 或 JS，请把 HTML 和资源一起打成 ZIP；完整资源会随版本保存，请排除 node_modules、密钥和无关文件。
           </span>
         </div>
         {error && (
@@ -2058,7 +2059,7 @@ function Guide() {
         [
           "01",
           "上传交付包",
-          "代码继续在 Codex 中制作。将预览 HTML、图片字体和源码打成 ZIP，在项目里选择「上传新版本」。React 项目需要先构建预览。",
+          "代码继续在 Codex 中制作。将预览 HTML、图片字体和源码打成 ZIP；技术临时给你的资源已内联 HTML 也可以直接上传，在项目里选择「上传新版本」后继续走查。React 项目需要先构建预览。",
         ],
         [
           "02",

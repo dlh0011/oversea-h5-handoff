@@ -5,6 +5,7 @@ import { pipeline } from 'node:stream/promises';
 import { createWriteStream } from 'node:fs';
 import { Transform } from 'node:stream';
 import yauzl from 'yauzl';
+import { ZipArchive } from 'archiver';
 import { z } from 'zod';
 import { HttpError, safePath, Storage } from './storage.js';
 import type {FileEntry, Manifest, Page, Version} from '../shared/types.js';
@@ -40,6 +41,14 @@ export async function extractZip(zipPath:string,destination:string){
    zip.readEntry();
   });
  });return files;
+}
+export async function archiveSingleHtml(htmlPath:string,archivePath:string){
+ const stream=createWriteStream(archivePath);
+ const done=new Promise<void>((resolve,reject)=>{stream.on('close',resolve);stream.on('error',reject);});
+ const archive=new ZipArchive({zlib:{level:9}});
+ archive.on('error',error=>stream.destroy(error));archive.pipe(stream);
+ archive.file(htmlPath,{name:'standalone.html'});
+ await archive.finalize();await done;
 }
 function validateUrl(value=''){if(value && !/^https:\/\/(www\.)?figma\.com\//.test(value))throw new HttpError(400,'设计链接须为 Figma HTTPS 链接');return value;}
 export async function importPackage(store:Storage,zipPath:string,input:{projectId?:string;name?:string;label?:string;notes?:string}){
