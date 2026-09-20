@@ -1418,6 +1418,26 @@ code {
   border-color: #2764db;
   background: #f6f9ff;
 }
+.upload-or {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 2px 0;
+  color: #a1a2aa;
+  font-size: 10px;
+}
+.upload-or::before,
+.upload-or::after {
+  content: "";
+  height: 1px;
+  flex: 1;
+  background: #e5e5ea;
+}
+.field-help {
+  color: #96979e;
+  font-size: 10px;
+  line-height: 1.5;
+}
 .form-tip {
   display: flex;
   gap: 7px;

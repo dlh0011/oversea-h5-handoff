@@ -1845,6 +1845,7 @@ function UploadDialog({
   done: (v: Version) => Promise<void>;
 }) {
   const [file, setFile] = useState<File | null>(null),
+    [url, setUrl] = useState(""),
     [name, setName] = useState(project?.name || ""),
     [label, setLabel] = useState(""),
     [notes, setNotes] = useState(""),
@@ -1864,18 +1865,20 @@ function UploadDialog({
       return;
     }
     setError("");
+    setUrl("");
     setFile(f);
   }
   async function submit(e: FormEvent) {
     e.preventDefault();
-    if (!file) {
-      setError("请先选择交付包");
+    if (!file && !url.trim()) {
+      setError("请先选择交付包或填写 HTML 链接");
       return;
     }
     setBusy(true);
     setError("");
     const form = new FormData();
-    form.append("file", file);
+    if (file) form.append("file", file);
+    if (url.trim()) form.append("url", url.trim());
     if (project) form.append("projectId", project.id);
     if (name.trim()) form.append("name", name.trim());
     if (label.trim()) form.append("label", label.trim());
@@ -1952,6 +1955,27 @@ function UploadDialog({
               : "ZIP 交付包，或资源已内联的单个 HTML · 最大 100MB"}
           </span>
         </div>
+        <div className="upload-or" aria-hidden="true">
+          <span>或</span>
+        </div>
+        <label className="form-label">
+          HTML 链接
+          <input
+            type="url"
+            value={url}
+            onChange={(e) => {
+              setUrl(e.target.value);
+              if (e.target.value.trim()) setFile(null);
+              setError("");
+            }}
+            placeholder="https://example.com/test/index.html"
+            maxLength={2000}
+            disabled={busy}
+          />
+          <small className="field-help">
+            站点会抓取 HTML 并归档；依赖旁边资源的页面请上传 ZIP。
+          </small>
+        </label>
         <div className="form-row">
           <label className="form-label">
             版本名称
@@ -1997,7 +2021,7 @@ function UploadDialog({
           >
             取消
           </button>
-          <button type="submit" className="primary" disabled={busy || !file}>
+          <button type="submit" className="primary" disabled={busy || (!file && !url.trim())}>
             {busy ? (
               <Loader2 className="spin" size={16} />
             ) : (

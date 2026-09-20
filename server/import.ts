@@ -12,6 +12,7 @@ import type {FileEntry, Manifest, Page, Version} from '../shared/types.js';
 const pageSchema=z.object({id:z.string().min(1).max(100),name:z.string().min(1).max(120),path:z.string().min(1).max(500),width:z.number().int().min(240).max(2560).default(402),height:z.number().int().min(200).max(5000).default(903),note:z.string().max(2000).optional()});
 const manifestSchema=z.object({schemaVersion:z.literal(1),name:z.string().min(1).max(120),version:z.string().min(1).max(80),notes:z.string().max(10000).optional(),figmaUrl:z.string().max(1000).optional(),previewRoot:z.string().max(300).default('.'),sourceArchive:z.string().max(300).optional(),pages:z.array(pageSchema).min(1).max(100)});
 const MAX_EXPANDED=250*1024*1024, MAX_ENTRY=80*1024*1024;
+const MAX_REMOTE_HTML=100*1024*1024;
 export async function extractZip(zipPath:string,destination:string){
  const files:FileEntry[]=[]; let bytes=0, actualTotal=0, count=0;
  await fs.mkdir(destination,{recursive:true});
@@ -49,6 +50,26 @@ export async function archiveSingleHtml(htmlPath:string,archivePath:string){
  archive.on('error',error=>stream.destroy(error));archive.pipe(stream);
  archive.file(htmlPath,{name:'standalone.html'});
  await archive.finalize();await done;
+}
+export function validateHtmlUrl(raw:string){
+ let parsed:URL;
+ try{parsed=new URL(raw);}catch{throw new HttpError(400,'HTML 链接无效，请填写完整的 http(s) 地址');}
+ if(!['http:','https:'].includes(parsed.protocol)||parsed.username||parsed.password)throw new HttpError(400,'HTML 链接必须是可访问的 http(s) 地址');
+ if(['localhost','127.0.0.1','::1','0.0.0.0'].includes(parsed.hostname.toLowerCase()))throw new HttpError(400,'HTML 链接不能指向本机地址');
+ return parsed;
+}
+export async function downloadHtmlUrl(raw:string,target:string){
+ const url=validateHtmlUrl(raw),controller=new AbortController(),timer=setTimeout(()=>controller.abort(),15000);
+ try{
+  let response:Response;
+  try{response=await fetch(url,{redirect:'follow',signal:controller.signal});}catch(error){if((error as Error).name==='AbortError')throw new HttpError(408,'HTML 链接响应超时');throw new HttpError(400,'HTML 链接无法访问，请检查地址和网络');}
+  validateHtmlUrl(response.url||url.toString());
+  if(!response.ok)throw new HttpError(400,`HTML 链接返回 HTTP ${response.status}`);
+  const length=Number(response.headers.get('content-length')||0);if(length>MAX_REMOTE_HTML)throw new HttpError(400,'HTML 文件超过 100MB');
+  const text=await response.text();if(Buffer.byteLength(text,'utf8')>MAX_REMOTE_HTML)throw new HttpError(400,'HTML 文件超过 100MB');
+  if(!/<(?:!doctype\s+html|html\b|head\b|body\b)/i.test(text))throw new HttpError(400,'链接内容不是可预览的 HTML 文件');
+  await fs.writeFile(target,text,'utf8');
+ }finally{clearTimeout(timer);}
 }
 function validateUrl(value=''){if(value && !/^https:\/\/(www\.)?figma\.com\//.test(value))throw new HttpError(400,'设计链接须为 Figma HTTPS 链接');return value;}
 export async function importPackage(store:Storage,zipPath:string,input:{projectId?:string;name?:string;label?:string;notes?:string}){

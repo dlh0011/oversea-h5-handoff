@@ -7,7 +7,7 @@ import multer from "multer";
 import { z } from "zod";
 import { ZipArchive } from "archiver";
 import { Storage, HttpError, safePath } from "./storage.js";
-import { archiveSingleHtml, importPackage } from "./import.js";
+import { archiveSingleHtml, downloadHtmlUrl, importPackage } from "./import.js";
 import { visualEditorClient } from "./visual-editor-client.js";
 import { renderSharePage } from "./share.js";
 import type { Issue } from "../shared/types.js";
@@ -106,29 +106,42 @@ app.get("/api/catalog", (_req, res) =>
 );
 app.post("/api/import", upload.single("file"), async (req, res) => {
   const file = req.file;
-  if (!file) throw new HttpError(400, "请选择 ZIP 或 HTML 文件");
-  let archivePath = file.path;
+  const input = z
+    .object({
+      projectId: z.string().uuid().optional(),
+      name: z.string().max(120).optional(),
+      label: z.string().max(80).optional(),
+      notes: z.string().max(10000).optional(),
+      url: z.string().max(2000).optional(),
+    })
+    .parse(req.body);
+  const remoteUrl = input.url?.trim();
+  if (!file && !remoteUrl) throw new HttpError(400, "请选择 ZIP、HTML 文件或填写 HTML 链接");
+  if (file && remoteUrl) throw new HttpError(400, "请只选择文件或填写 HTML 链接其中一种方式");
+  let archivePath = file?.path;
+  let downloadedPath: string | undefined;
   try {
-    const extension = path.extname(file.originalname).toLowerCase();
-    if (extension === ".html" || extension === ".htm") {
+    if (!file) {
+      downloadedPath = path.join(temp, `remote-${crypto.randomUUID()}.html`);
       archivePath = path.join(temp, `html-${crypto.randomUUID()}.zip`);
-      await archiveSingleHtml(file.path, archivePath);
-    } else if (extension !== ".zip") {
-      throw new HttpError(400, "请上传 ZIP 交付包或单个 HTML 文件");
+      await downloadHtmlUrl(remoteUrl!, downloadedPath);
+      await archiveSingleHtml(downloadedPath, archivePath);
+    } else {
+      const extension = path.extname(file.originalname).toLowerCase();
+      if (extension === ".html" || extension === ".htm") {
+        archivePath = path.join(temp, `html-${crypto.randomUUID()}.zip`);
+        await archiveSingleHtml(file.path, archivePath);
+      } else if (extension !== ".zip") {
+        throw new HttpError(400, "请上传 ZIP 交付包或单个 HTML 文件");
+      }
     }
-    const input = z
-      .object({
-        projectId: z.string().uuid().optional(),
-        name: z.string().max(120).optional(),
-        label: z.string().max(80).optional(),
-        notes: z.string().max(10000).optional(),
-      })
-      .parse(req.body);
+    if (!archivePath) throw new HttpError(400, "没有生成可预览的交付包");
     const version = await importPackage(store, archivePath, input);
     res.status(201).json({ version });
   } finally {
-    await fs.rm(file.path, { force: true });
-    if (archivePath !== file.path) await fs.rm(archivePath, { force: true });
+    if (file) await fs.rm(file.path, { force: true });
+    if (downloadedPath) await fs.rm(downloadedPath, { force: true });
+    if (archivePath && archivePath !== file?.path) await fs.rm(archivePath, { force: true });
   }
 });
 const patchSchema = z.object({
