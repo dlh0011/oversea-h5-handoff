@@ -109,6 +109,7 @@ app.post("/api/import", upload.single("file"), async (req, res) => {
   const input = z
     .object({
       projectId: z.string().uuid().optional(),
+      secondaryOf: z.string().uuid().optional(),
       name: z.string().max(120).optional(),
       label: z.string().max(80).optional(),
       notes: z.string().max(10000).optional(),

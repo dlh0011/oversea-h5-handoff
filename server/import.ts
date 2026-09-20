@@ -72,7 +72,7 @@ export async function downloadHtmlUrl(raw:string,target:string){
  }finally{clearTimeout(timer);}
 }
 function validateUrl(value=''){if(value && !/^https:\/\/(www\.)?figma\.com\//.test(value))throw new HttpError(400,'设计链接须为 Figma HTTPS 链接');return value;}
-export async function importPackage(store:Storage,zipPath:string,input:{projectId?:string;name?:string;label?:string;notes?:string}){
+export async function importPackage(store:Storage,zipPath:string,input:{projectId?:string;secondaryOf?:string;name?:string;label?:string;notes?:string}){
  const id=crypto.randomUUID(), directory=store.directory(id), content=path.join(directory,'content');
  try{
   const rawFiles=await extractZip(zipPath,content);
@@ -105,13 +105,26 @@ export async function importPackage(store:Storage,zipPath:string,input:{projectI
   if(manifest.sourceArchive){safePath(content,manifest.sourceArchive);sourceArchive=path.posix.join(base,manifest.sourceArchive);if(!sourceArchive.endsWith('.zip')||!rawFiles.some(f=>f.path===sourceArchive))throw new HttpError(400,'源码 ZIP 不存在');}
   const now=new Date().toISOString(),stat=await fs.stat(zipPath);
   await fs.copyFile(zipPath,path.join(directory,'package.zip'));
-  const version:Version={id,projectId:input.projectId||crypto.randomUUID(),label:input.label?.trim()||manifest.version,notes:input.notes?.trim()||manifest.notes||'',createdAt:now,previewKey:crypto.randomBytes(24).toString('hex'),previewRoot,pages:manifest.pages,files:rawFiles,sourceArchive,archiveSize:stat.size,status:'reviewing',workflowStatus:input.projectId?'ready':'reviewing',revision:0,issues:[]};
+  let targetProjectId=input.projectId;
   await store.update(state=>{
+   if(input.secondaryOf){
+    const parent=state.projects.find(p=>p.id===input.secondaryOf);
+    if(!parent)throw new HttpError(404,'主项目不存在');
+    if(parent.kind==='secondary')throw new HttpError(400,'二次走查必须挂在主项目下');
+    const existing=state.projects.find(p=>p.kind==='secondary'&&p.parentProjectId===parent.id);
+    targetProjectId=targetProjectId||existing?.id||crypto.randomUUID();
+    if(input.projectId && (!existing || input.projectId!==existing.id))throw new HttpError(400,'目标项目不是该主项目的二次走查空间');
+    if(!existing)state.projects.push({id:targetProjectId,name:`${parent.name} · 二次走查`,figmaUrl:parent.figmaUrl,createdAt:now,kind:'secondary',parentProjectId:parent.id});
+   }
+   targetProjectId=targetProjectId||crypto.randomUUID();
    if(input.projectId&&!state.projects.some(p=>p.id===input.projectId))throw new HttpError(404,'项目不存在');
-   if(state.versions.some(v=>v.projectId===version.projectId&&v.label===version.label))throw new HttpError(409,'这个版本号已存在，请使用新的版本号');
-   if(!input.projectId)state.projects.push({id:version.projectId,name:input.name?.trim()||manifest.name,figmaUrl:validateUrl(manifest.figmaUrl),createdAt:now});
+   if(state.versions.some(v=>v.projectId===targetProjectId&&v.label=== (input.label?.trim()||manifest.version)))throw new HttpError(409,'这个版本号已存在，请使用新的版本号');
+   const version:Version={id,projectId:targetProjectId,label:input.label?.trim()||manifest.version,notes:input.notes?.trim()||manifest.notes||'',createdAt:now,previewKey:crypto.randomBytes(24).toString('hex'),previewRoot,pages:manifest.pages,files:rawFiles,sourceArchive,archiveSize:stat.size,status:'reviewing',workflowStatus:input.secondaryOf?'reviewing':input.projectId?'ready':'reviewing',revision:0,issues:[]};
+   if(!input.projectId&&!input.secondaryOf)state.projects.push({id:version.projectId,name:input.name?.trim()||manifest.name,figmaUrl:validateUrl(manifest.figmaUrl),createdAt:now,kind:'primary'});
    state.versions.push(version);
-  });return version;
+   return version;
+  });
+  return store.state.versions.find(v=>v.id===id)!;
  }catch(error){await fs.rm(directory,{recursive:true,force:true});throw error;}
 }
 async function validateResources(root:string,htmlFile:string){

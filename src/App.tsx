@@ -57,6 +57,7 @@ type MarkerPosition = {
   width: number;
   height: number;
 };
+type UploadKind = "primary" | "secondary";
 const states = { todo: "待修改", recheck: "待复查", passed: "已通过" };
 const workflowStates: Record<WorkflowStatus, string> = {
   reviewing: "正在走查",
@@ -124,12 +125,20 @@ export default function App() {
       new URLSearchParams(location.search).get("version") || "",
     );
   const [section, setSection] = useState("preview"),
-    [upload, setUpload] = useState(false),
+    [upload, setUpload] = useState<UploadKind | false>(false),
     [toast, setToast] = useState(""),
     [search, setSearch] = useState(""),
     [busy, setBusy] = useState(false);
   const [dirty, setDirty] = useState(false);
   const project = catalog.projects.find((p) => p.id === projectId);
+  const primaryProject = project?.kind === "secondary"
+    ? catalog.projects.find((p) => p.id === project.parentProjectId)
+    : project;
+  const secondaryProject = primaryProject
+    ? catalog.projects.find(
+        (p) => p.kind === "secondary" && p.parentProjectId === primaryProject.id,
+      )
+    : undefined;
   const versions = catalog.versions
     .filter((v) => v.projectId === projectId)
     .slice()
@@ -311,16 +320,36 @@ export default function App() {
           }
         >
           <FolderOpen size={18} />
-          全部项目<span className="count">{catalog.projects.length}</span>
+          全部项目
+          <span className="count">
+            {catalog.projects.filter((item) => item.kind !== "secondary").length}
+          </span>
         </button>
         {project && (
           <>
             <p className="nav-caption project-caption">当前项目</p>
             <div className="project-nav-title">{project.name}</div>
+            {project.kind === "secondary" && (
+              <button
+                className="nav-back-project"
+                onClick={() =>
+                  navigate(() => {
+                    setProjectId(project.parentProjectId || "");
+                    setSection("secondary");
+                  })
+                }
+              >
+                <ArrowLeft size={14} />
+                返回主项目
+              </button>
+            )}
             {[
               ["preview", Layers, "页面与预览"],
               ["issues", MessageSquare, "走查记录"],
               ["delivery", Package, "交付文件"],
+              ...(project.kind === "secondary"
+                ? []
+                : [["secondary", ClipboardList, "二次走查"]]),
             ].map(([key, Icon, label]) => {
               const I = Icon as typeof Layers;
               return (
@@ -335,6 +364,16 @@ export default function App() {
                     <span className="count">
                       {version?.issues.filter((i) => i.status !== "passed")
                         .length || 0}
+                    </span>
+                  )}
+                  {key === "secondary" && (
+                    <span className="count">
+                      {secondaryProject
+                        ? catalog.versions
+                            .filter((v) => v.projectId === secondaryProject.id)
+                            .at(-1)
+                            ?.issues.filter((i) => i.status !== "passed").length || 0
+                        : 0}
                     </span>
                   )}
                 </button>
@@ -372,6 +411,8 @@ export default function App() {
                     ? "走查记录"
                     : section === "delivery"
                       ? "交付文件"
+                    : section === "secondary"
+                      ? "二次走查"
                       : section === "guide"
                         ? "使用指南"
                         : "页面与预览"}
@@ -400,7 +441,20 @@ export default function App() {
             catalog={catalog}
             search={search}
             setSearch={setSearch}
-            onUpload={() => setUpload(true)}
+            onUpload={() => setUpload("primary")}
+            onOpen={(id, version) => {
+              setProjectId(id);
+              setVersionId(version);
+              setSection("preview");
+            }}
+          />
+        ) : project && project.kind !== "secondary" && section === "secondary" ? (
+          <SecondaryReview
+            primaryProject={primaryProject!}
+            secondaryProject={secondaryProject}
+            catalog={catalog}
+            onUpload={() => navigate(() => setUpload("secondary"))}
+            onBack={() => navigate(() => setSection("preview"))}
             onOpen={(id, version) => {
               setProjectId(id);
               setVersionId(version);
@@ -453,7 +507,7 @@ export default function App() {
                 </button>
                 <button
                   className="primary"
-                  onClick={() => navigate(() => setUpload(true))}
+                  onClick={() => navigate(() => setUpload("primary"))}
                 >
                   <UploadCloud size={16} />
                   上传新版本
@@ -550,16 +604,31 @@ export default function App() {
       </div>
       {upload && (
         <UploadDialog
-          project={project}
-          latest={versions[0]}
+          project={
+            upload === "secondary" ? secondaryProject || primaryProject : project
+          }
+          latest={
+            upload === "secondary"
+              ? catalog.versions
+                  .filter((v) => v.projectId === secondaryProject?.id)
+                  .at(-1)
+              : versions[0]
+          }
+          secondaryOf={upload === "secondary" ? primaryProject?.id : undefined}
           close={() => setUpload(false)}
           done={async (v) => {
             setUpload(false);
             await reload();
-            setProjectId(v.projectId);
-            setVersionId(v.id);
-            setSection("preview");
-            setToast("上传完成，预览与交付包已归档");
+            if (upload === "secondary") {
+              setProjectId(primaryProject?.id || "");
+              setSection("secondary");
+              setToast("技术 HTML 已归档到二次走查，主项目预览未改变");
+            } else {
+              setProjectId(v.projectId);
+              setVersionId(v.id);
+              setSection("preview");
+              setToast("上传完成，预览与交付包已归档");
+            }
           }}
         />
       )}
@@ -589,10 +658,16 @@ function ProjectLibrary({
   onOpen: (id: string, version: string) => void;
 }) {
   const [filter, setFilter] = useState("all");
-  const rows = catalog.projects.map((project) => ({
-    project,
-    version: catalog.versions.filter((v) => v.projectId === project.id).at(-1),
-  }));
+  const rows = catalog.projects
+    .filter((project) => project.kind !== "secondary")
+    .map((project) => ({
+      project,
+      version: catalog.versions.filter((v) => v.projectId === project.id).at(-1),
+    }));
+  const visibleProjectIds = new Set(rows.map((row) => row.project.id));
+  const visibleVersionCount = catalog.versions.filter((version) =>
+    visibleProjectIds.has(version.projectId),
+  ).length;
   const shown = rows.filter(
     ({ project, version }) =>
       project.name.toLowerCase().includes(search.toLowerCase()) &&
@@ -604,7 +679,7 @@ function ProjectLibrary({
         <div>
           <h1>项目交付</h1>
           <p>
-            {rows.length} 个项目 · {catalog.versions.length} 个归档版本
+            {rows.length} 个项目 · {visibleVersionCount} 个归档版本
           </p>
         </div>
         <button className="primary" onClick={onUpload}>
@@ -732,7 +807,7 @@ function ProjectLibrary({
         <span>{shown.length} 个项目</span>
         <span>
           <FileArchive size={14} />
-          {catalog.versions.length} 个版本已归档
+          {visibleVersionCount} 个版本已归档
         </span>
       </div>
     </main>
@@ -746,6 +821,102 @@ function Badge({ status }: { status: Version["status"] }) {
     </span>
   );
 }
+
+function SecondaryReview({
+  primaryProject,
+  secondaryProject,
+  catalog,
+  onUpload,
+  onBack,
+  onOpen,
+}: {
+  primaryProject: Project;
+  secondaryProject?: Project;
+  catalog: Catalog;
+  onUpload: () => void;
+  onBack: () => void;
+  onOpen: (projectId: string, versionId: string) => void;
+}) {
+  const versions = secondaryProject
+    ? catalog.versions
+        .filter((version) => version.projectId === secondaryProject.id)
+        .slice()
+        .reverse()
+    : [];
+  return (
+    <main className="dashboard secondary-review-page">
+      <div className="page-heading">
+        <div>
+          <button className="back-link" onClick={onBack}>
+            <ArrowLeft size={13} />
+            {primaryProject.name}
+          </button>
+          <h1>二次走查</h1>
+          <p>
+            将技术提供的 HTML 单独归档，在真实线上测试版本上复查，不会覆盖主项目设计预览。
+          </p>
+        </div>
+        <button className="primary" onClick={onUpload}>
+          <UploadCloud size={16} />
+          导入技术 HTML
+        </button>
+      </div>
+      <div className="secondary-review-note">
+        <ClipboardList size={18} />
+        <div>
+          <strong>主项目预览保持不变</strong>
+          <span>
+            这里的每次导入都会生成独立版本，可继续添加气泡、走查记录并分享给技术。
+          </span>
+        </div>
+      </div>
+      {!versions.length ? (
+        <div className="large-empty secondary-empty">
+          <ClipboardList size={28} />
+          <h3>还没有技术测试版本</h3>
+          <p>粘贴技术给你的 HTML 链接，或上传单个 HTML / ZIP 开始二次走查。</p>
+          <button className="primary" onClick={onUpload}>
+            <Plus size={16} />
+            导入第一个版本
+          </button>
+        </div>
+      ) : (
+        <div className="secondary-version-list">
+          <div className="secondary-list-heading">
+            <div>
+              <span className="eyebrow">技术测试版本</span>
+              <h2>{secondaryProject?.name}</h2>
+            </div>
+            <span>{versions.length} 个版本已归档</span>
+          </div>
+          {versions.map((version) => (
+            <button
+              key={version.id}
+              className="secondary-version-row"
+              onClick={() => onOpen(secondaryProject!.id, version.id)}
+            >
+              <span className="secondary-version-index">
+                <Layers size={16} />
+              </span>
+              <span className="secondary-version-info">
+                <strong>{version.label}</strong>
+                <span>{version.notes || "暂无版本说明"}</span>
+              </span>
+              <span className="secondary-version-meta">
+                <Badge status={version.status} />
+                <small>
+                  {version.issues.filter((issue) => issue.status !== "passed").length} 项待处理 · {date(version.createdAt)}
+                </small>
+              </span>
+              <ArrowUpRight size={17} className="project-open" />
+            </button>
+          ))}
+        </div>
+      )}
+    </main>
+  );
+}
+
 function WorkflowBadge({ status }: { status: WorkflowStatus }) {
   return (
     <span className={`workflow-badge ${status}`}>
@@ -1836,11 +2007,13 @@ function Delivery({
 function UploadDialog({
   project,
   latest,
+  secondaryOf,
   close,
   done,
 }: {
   project?: Project;
   latest?: Version;
+  secondaryOf?: string;
   close: () => void;
   done: (v: Version) => Promise<void>;
 }) {
@@ -1879,7 +2052,10 @@ function UploadDialog({
     const form = new FormData();
     if (file) form.append("file", file);
     if (url.trim()) form.append("url", url.trim());
-    if (project) form.append("projectId", project.id);
+    if (project && (!secondaryOf || project.kind === "secondary")) {
+      form.append("projectId", project.id);
+    }
+    if (secondaryOf) form.append("secondaryOf", secondaryOf);
     if (name.trim()) form.append("name", name.trim());
     if (label.trim()) form.append("label", label.trim());
     if (notes.trim()) form.append("notes", notes.trim());
@@ -1899,7 +2075,9 @@ function UploadDialog({
       <form className="modal" onSubmit={submit}>
         <div className="modal-heading">
           <div>
-            <h2>{project ? "上传新版本" : "创建项目交付"}</h2>
+            <h2>
+              {secondaryOf ? "导入技术 HTML · 二次走查" : project ? "上传新版本" : "创建项目交付"}
+            </h2>
           </div>
           <button
             className="icon-button"
@@ -1913,12 +2091,14 @@ function UploadDialog({
           </button>
         </div>
         <p className="modal-description">
-          可上传 Codex 交付 ZIP，也可以直接上传技术给你的单个 HTML 做二次走查。
+          {secondaryOf
+            ? "技术版本会归档到独立的二次走查空间，不会替换主项目的页面预览。"
+            : "可上传 Codex 交付 ZIP，也可以直接上传技术给你的单个 HTML 做二次走查。"}
         </p>
         <label className="form-label">
           项目名称
           <input
-            required={!project}
+            required={!project || !!secondaryOf}
             disabled={!!project || busy}
             value={name}
             onChange={(e) => setName(e.target.value)}
@@ -2083,7 +2263,7 @@ function Guide() {
         [
           "01",
           "上传交付包",
-          "代码继续在 Codex 中制作。将预览 HTML、图片字体和源码打成 ZIP；技术临时给你的资源已内联 HTML 也可以直接上传，在项目里选择「上传新版本」后继续走查。React 项目需要先构建预览。",
+          "代码继续在 Codex 中制作。将预览 HTML、图片字体和源码打成 ZIP；技术临时给你的资源已内联 HTML 请从项目侧栏「二次走查」导入，避免替换主项目预览。React 项目需要先构建预览。",
         ],
         [
           "02",
@@ -2109,7 +2289,7 @@ function Guide() {
         <div>
           <h3>版本与归档</h3>
           <p>
-            页面与弹窗由交付清单列出；标注按版本和页面保存；预览的样式调整是修改建议；原始交付包不会被网站改写。新版本需要重新验收。
+            页面与弹窗由交付清单列出；标注按版本和页面保存；技术 HTML 归档在独立二次走查空间；预览的样式调整是修改建议；原始交付包不会被网站改写。新版本需要重新验收。
           </p>
         </div>
       </div>

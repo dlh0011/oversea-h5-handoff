@@ -45,6 +45,9 @@ export type Project = {
   name: string;
   figmaUrl: string;
   createdAt: string;
+  /** Secondary review spaces are kept beside the primary project so technical HTML never replaces the design baseline. */
+  kind?: "primary" | "secondary";
+  parentProjectId?: string;
 };
 export type Snapshot = { projects: Project[]; versions: Version[] };
 export type Manifest = {
