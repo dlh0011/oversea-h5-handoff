@@ -124,7 +124,14 @@ export default function App() {
     [versionId, setVersionId] = useState(
       new URLSearchParams(location.search).get("version") || "",
     );
-  const [section, setSection] = useState("preview"),
+  const [primaryVersionId, setPrimaryVersionId] = useState(
+    new URLSearchParams(location.search).get("designVersion") || "",
+  );
+  const [section, setSection] = useState(() => {
+    const value = new URLSearchParams(location.search).get("section") || "preview";
+    return ["preview", "issues", "delivery", "secondary", "guide"].includes(value)
+      ? value : "preview";
+  }),
     [upload, setUpload] = useState<UploadKind | false>(false),
     [toast, setToast] = useState(""),
     [search, setSearch] = useState(""),
@@ -170,9 +177,11 @@ export default function App() {
   useEffect(() => {
     const query = new URLSearchParams();
     if (projectId) query.set("project", projectId);
-    if (version) query.set("version", version.id);
+    if (versionId || version) query.set("version", version?.id || versionId);
+    if (section !== "preview") query.set("section", section);
+    if (primaryVersionId) query.set("designVersion", primaryVersionId);
     history.replaceState(null, "", query.size ? "?" + query : "/");
-  }, [projectId, version?.id]);
+  }, [projectId, versionId, version?.id, section, primaryVersionId]);
   useEffect(() => {
     const guard = (e: BeforeUnloadEvent) => {
       if (dirty) {
@@ -283,6 +292,8 @@ export default function App() {
             e.preventDefault();
             navigate(() => {
               setProjectId("");
+              setVersionId("");
+              setPrimaryVersionId("");
               setSection("preview");
             });
           }}
@@ -299,6 +310,8 @@ export default function App() {
           onClick={() =>
             navigate(() => {
               setProjectId("");
+              setVersionId("");
+              setPrimaryVersionId("");
               setSection("preview");
             })
           }
@@ -315,6 +328,8 @@ export default function App() {
           onClick={() =>
             navigate(() => {
               setProjectId("");
+              setVersionId("");
+              setPrimaryVersionId("");
               setSection("preview");
             })
           }
@@ -335,6 +350,7 @@ export default function App() {
                 onClick={() =>
                   navigate(() => {
                     setProjectId(project.parentProjectId || "");
+                    setVersionId(primaryVersionId);
                     setSection("secondary");
                   })
                 }
@@ -443,6 +459,7 @@ export default function App() {
             setSearch={setSearch}
             onUpload={() => setUpload("primary")}
             onOpen={(id, version) => {
+              setPrimaryVersionId("");
               setProjectId(id);
               setVersionId(version);
               setSection("preview");
@@ -456,6 +473,7 @@ export default function App() {
             onUpload={() => navigate(() => setUpload("secondary"))}
             onBack={() => navigate(() => setSection("preview"))}
             onOpen={(id, version) => {
+              setPrimaryVersionId(versions.find((v) => v.id === versionId)?.id || versions[0]?.id || "");
               setProjectId(id);
               setVersionId(version);
               setSection("preview");
@@ -467,7 +485,13 @@ export default function App() {
               <div>
                 <button
                   className="back-link"
-                  onClick={() => navigate(() => setProjectId(""))}
+                  onClick={() =>
+                    navigate(() => {
+                      setProjectId("");
+                      setVersionId("");
+                      setPrimaryVersionId("");
+                    })
+                  }
                 >
                   <ArrowLeft size={13} />
                   全部项目
@@ -510,7 +534,7 @@ export default function App() {
                   onClick={() => navigate(() => setUpload("primary"))}
                 >
                   <UploadCloud size={16} />
-                  上传新版本
+                  {project.kind === "secondary" ? "导入技术新版本" : "上传新版本"}
                 </button>
               </div>
             </div>
@@ -614,7 +638,7 @@ export default function App() {
                   .at(-1)
               : versions[0]
           }
-          secondaryOf={upload === "secondary" ? primaryProject?.id : undefined}
+          secondaryOf={upload === "secondary" || project?.kind === "secondary" ? primaryProject?.id : undefined}
           close={() => setUpload(false)}
           done={async (v) => {
             setUpload(false);
@@ -853,7 +877,7 @@ function SecondaryReview({
           </button>
           <h1>二次走查</h1>
           <p>
-            将技术提供的 HTML 单独归档，在真实线上测试版本上复查，不会覆盖主项目设计预览。
+            单独保存技术提供的 HTML，在导入的测试页面上标注和复查。
           </p>
         </div>
         <button className="primary" onClick={onUpload}>
@@ -2093,12 +2117,12 @@ function UploadDialog({
         <p className="modal-description">
           {secondaryOf
             ? "技术版本会归档到独立的二次走查空间，不会替换主项目的页面预览。"
-            : "可上传 Codex 交付 ZIP，也可以直接上传技术给你的单个 HTML 做二次走查。"}
+            : "上传 Codex 的设计交付版本。技术提供的测试 HTML，请从左侧「二次走查」导入。"}
         </p>
         <label className="form-label">
           项目名称
           <input
-            required={!project || !!secondaryOf}
+            required={!project}
             disabled={!!project || busy}
             value={name}
             onChange={(e) => setName(e.target.value)}
@@ -2207,7 +2231,7 @@ function UploadDialog({
             ) : (
               <UploadCloud size={16} />
             )}{" "}
-            {busy ? "正在上传并检查资源…" : "上传并打开预览"}
+            {busy ? "正在导入并检查资源…" : secondaryOf ? "导入二次走查" : "上传并打开预览"}
           </button>
         </div>
       </form>
