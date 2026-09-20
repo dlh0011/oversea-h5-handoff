@@ -40,7 +40,7 @@ http://<站点地址>/share/<版本ID>
 
 ```bash
 HOST=0.0.0.0
-HANDOFF_ACCESS_CODE='至少 12 位的团队访问码'
+HANDOFF_ACCESS_CODE='至少 6 位的团队访问码'
 ```
 
 将 `HANDOFF_DATA_DIR` 指到持久磁盘目录。不要把 `data/` 提交到代码仓库；它包含项目目录、版本和上传文件。
@@ -56,7 +56,7 @@ HANDOFF_ACCESS_CODE='至少 12 位的团队访问码'
 ```env
 SITE_ORIGIN=http://192.168.6.27:4328
 PREVIEW_ORIGIN=http://192.168.6.27:4329
-HANDOFF_ACCESS_CODE=替换为至少12位的团队访问码
+HANDOFF_ACCESS_CODE=替换为至少6位的团队访问码
 ```
 
 把两个地址中的 IP 换成部署机器在公司内网的 IP，然后执行：
@@ -75,7 +75,7 @@ npm run build
 HOST=0.0.0.0 \
 SITE_ORIGIN=http://内网IP:4328 \
 PREVIEW_ORIGIN=http://内网IP:4329 \
-HANDOFF_ACCESS_CODE='至少12位的团队访问码' \
+HANDOFF_ACCESS_CODE='至少6位的团队访问码' \
 npm start
 ```
 

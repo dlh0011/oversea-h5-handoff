@@ -23,8 +23,8 @@ const previewOrigin = new URL(
 ).origin;
 if (siteOrigin === previewOrigin) throw new Error("预览必须使用独立 origin");
 const accessCode = process.env.HANDOFF_ACCESS_CODE || "";
-if (!["127.0.0.1", "localhost", "::1"].includes(host) && accessCode.length < 12)
-  throw new Error("团队部署请设置至少 12 位 HANDOFF_ACCESS_CODE");
+if (!["127.0.0.1", "localhost", "::1"].includes(host) && accessCode.length < 6)
+  throw new Error("团队部署请设置至少 6 位 HANDOFF_ACCESS_CODE");
 const store = new Storage(
   path.resolve(process.env.HANDOFF_DATA_DIR || path.join(root, "data")),
 );

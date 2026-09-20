@@ -26,7 +26,7 @@ GitHub Pages 版本使用 `npm run export:pages -- <版本ID>` 生成 `site/`，
 cd oversea-h5-handoff
 npm install
 npm run build
-HANDOFF_ACCESS_CODE='至少 12 位团队访问码' npm start
+HANDOFF_ACCESS_CODE='至少 6 位团队访问码' npm start
 ```
 
 运行服务的本机访问 `127.0.0.1:4328`、`localhost:4328` 或 `::1:4328` 会自动免登录；其他电脑通过内网地址访问时仍需输入团队访问码。
